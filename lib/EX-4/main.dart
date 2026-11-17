@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 void main() => runApp(
   MaterialApp(
     debugShowCheckedModeBanner: false,
@@ -15,17 +14,17 @@ void main() => runApp(
             const Row(
               spacing: 15,
               children: [
-                 Text(
+                Text(
                   "Weather",
                   style: TextStyle(
-                    color:  Color.fromARGB(255, 0, 0, 0),
+                    color: Color.fromARGB(255, 0, 0, 0),
                     fontWeight: FontWeight(700),
                     fontSize: 45,
                   ),
                 ),
                 Icon(Icons.cloud, color: Color.fromARGB(255, 0, 0, 0)),
-                 Spacer(),
-                 CircleAvatar(
+                Spacer(),
+                CircleAvatar(
                   backgroundColor: Colors.white,
                   child: Icon(Icons.menu, color: Colors.black),
                 ),
@@ -35,8 +34,51 @@ void main() => runApp(
               "Thu, 12 November",
               style: TextStyle(fontSize: 15, fontWeight: FontWeight(300)),
             ),
-            const SizedBox(height: 30,),
-            WeatherBox(),
+            
+             const SizedBox(height: 30),
+            WeatherBox(
+              cityName: "PhnomPenh",
+              weather: "Cloudy",
+              temperature: 12.2,
+              minTempurature: 10.0,
+              maxTempearture: 30.0,
+              assetPath: "assets/ex4/cloudy.png",
+              topLeftGradient: Color(0xFFC084FC),
+              bottomRightGradient: Color.fromARGB(255, 89, 36, 193),
+            ),
+            const SizedBox(height: 20),
+            WeatherBox(
+              cityName: "Paris",
+              weather: "Sunny Cloudy",
+              temperature: 22.2,
+              minTempurature: 10.0,
+              maxTempearture: 40.0,
+              assetPath: "assets/ex4/sunnyCloudy.png",
+              topLeftGradient: Color(0xFF6EE7C7),
+              bottomRightGradient: Color.fromARGB(255, 9, 112, 90),
+            ),
+            const SizedBox(height: 20),
+            WeatherBox(
+              cityName: "Rome",
+              weather: "Sunny",
+              temperature: 45.2,
+              minTempurature: 10.0,
+              maxTempearture: 40.0,
+              assetPath: "assets/ex4/sunny.png",
+              topLeftGradient: Color(0xFFF472A0),
+              bottomRightGradient: Color.fromARGB(255, 198, 25, 68),
+            ),
+            const SizedBox(height: 20),
+            WeatherBox(
+              cityName: "Toulouse",
+              weather: "Very Cloudy",
+              temperature: 45.2,
+              minTempurature: 10.0,
+              maxTempearture: 40.0,
+              assetPath: "assets/ex4/veryCloudy.png",
+              topLeftGradient: Color(0xFFF2B27A),
+              bottomRightGradient: Color.fromARGB(255, 198, 140, 77),
+            ),
           ],
         ),
       ),
@@ -45,10 +87,15 @@ void main() => runApp(
 );
 
 class WeatherBox extends StatelessWidget {
-  const new({
-    super.key,
-  });
-
+  const WeatherBox({super.key,required this.cityName,required this.weather,required this.temperature,required this.minTempurature,required this.maxTempearture,required this.assetPath, required this.bottomRightGradient, required this.topLeftGradient});
+  final String cityName;
+  final String weather;
+  final double temperature;
+  final double minTempurature;
+  final double maxTempearture;
+  final String assetPath;
+  final Color topLeftGradient;
+  final Color bottomRightGradient;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -56,23 +103,22 @@ class WeatherBox extends StatelessWidget {
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: [Color(0xFF5B21B6), Color(0xFF9D2FD1)],
+          colors: [topLeftGradient, bottomRightGradient],
         ),
         borderRadius: BorderRadius.circular(20),
       ),
       child: Padding(
         padding: const EdgeInsets.all(20),
-                
+
         child: Column(
           children: [
-            
             Row(
               children: [
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Tokyo",
+                      cityName,
                       style: TextStyle(
                         fontSize: 35,
                         color: Colors.white,
@@ -80,7 +126,7 @@ class WeatherBox extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      "Partly Cloud",
+                      weather,
                       style: TextStyle(
                         fontSize: 20,
                         color: Colors.white,
@@ -88,7 +134,7 @@ class WeatherBox extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      "18.4°C",
+                      "$temperature",
                       style: TextStyle(
                         fontSize: 55,
                         color: Colors.white,
@@ -110,9 +156,9 @@ class WeatherBox extends StatelessWidget {
                   ),
                   child: CircleAvatar(
                     backgroundColor: Colors.white,
-                
+
                     child: Image.asset(
-                      'assets/ex4/cloudy.png',
+                      assetPath,
                       width: 50,
                       height: 50,
                     ),
@@ -120,13 +166,13 @@ class WeatherBox extends StatelessWidget {
                 ),
               ],
             ),
-                
+
             Row(
               spacing: 15,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "Min 12°C",
+                  "Min $minTempurature°C",
                   style: TextStyle(
                     fontSize: 20,
                     color: Colors.white,
@@ -159,7 +205,7 @@ class WeatherBox extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  "Max 24°C",
+                  "Max $maxTempearture°C",
                   style: TextStyle(
                     fontSize: 20,
                     color: Colors.white,
